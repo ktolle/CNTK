@@ -38,7 +38,7 @@ NodeArg::NodeArg(const std::string& name,
     if (nullptr != p_node_arg_type)
     {
         (*node_arg_info_.mutable_type()) = *p_node_arg_type;
-        type_ = DataTypeUtils::ToType(node_arg_info_.type());
+        type_ = onnx::Utils::DataTypeUtils::ToType(node_arg_info_.type());
     }
     else
     {
@@ -127,7 +127,7 @@ void NodeArg::SetType(DataType p_type)
 
 void NodeArg::SetType(const TypeProto& type_proto)
 {
-    type_ = DataTypeUtils::ToType(type_proto);
+    type_ = onnx::Utils::DataTypeUtils::ToType(type_proto);
     *(node_arg_info_.mutable_type()) = type_proto;
 }
 
@@ -979,7 +979,7 @@ Status Graph::InferAndVerifyTypeMatch(Node& node,
                     TypeProto initial_tensor_type;
                     initial_tensor_type.mutable_tensor_type()->set_elem_type(
                         initial_tensor_iter->second->data_type());
-                    input_def->SetType(DataTypeUtils::ToType(initial_tensor_type));
+                    input_def->SetType(onnx::Utils::DataTypeUtils::ToType(initial_tensor_type));
 
                     // Set shape accordingly.
                     TensorShapeProto shape;
@@ -1098,7 +1098,7 @@ Status Graph::InferAndVerifyTypeMatch(Node& node,
         else if (FullyDefinedType(onnx_inferred_type))
         {
             // Use output type inferred by ONNX inference
-            inferred_type = DataTypeUtils::ToType(onnx_inferred_type);
+            inferred_type = onnx::Utils::DataTypeUtils::ToType(onnx_inferred_type);
         }
         else if (existing_type != nullptr)
         {
