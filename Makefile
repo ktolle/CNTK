@@ -92,9 +92,11 @@ PROTOC = $(PROTOBUF_PATH)/bin/protoc
 
 SOURCEDIR:= Source
 GSL_PATH:=$(SOURCEDIR)/../external/gsl
+ONNX_PATH:=$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2
 INCLUDEPATH:= $(addprefix $(SOURCEDIR)/, Common/Include CNTKv2LibraryDll CNTKv2LibraryDll/API CNTKv2LibraryDll/proto ../Examples/Extensibility/CPP Math CNTK ActionsLib ComputationNetworkLib SGDLib SequenceTrainingLib CNTK/BrainScript Readers/ReaderLib PerformanceProfilerDll)
 INCLUDEPATH+=$(PROTOBUF_PATH)/include
 INCLUDEPATH+=$(GSL_PATH)/include
+INCLUDEPATH+=$(ONNX_PATH)
 # COMMON_FLAGS include settings that are passed both to NVCC and C++ compilers.
 COMMON_FLAGS:= $(COMMON_FLAGS) -DHAS_MPI=$(HAS_MPI) -D_POSIX_SOURCE -D_XOPEN_SOURCE=600 -D__USE_XOPEN2K -std=c++11 -DCUDA_NO_HALF -D__CUDA_NO_HALF_OPERATORS__
 CPPFLAGS:=
@@ -522,25 +524,28 @@ CNTKLIBRARY_COMMON_SRC =\
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/core/graph/model.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/core/graph/op.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/core/graph/tensorutils.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/controlflow/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/experiments/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/generator/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/logical/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/math/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/math/old.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/nn/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/nn/old.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/reduction/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/rnn/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/rnn/old.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/tensor/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/tensor/old.cpp \
-    $(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/traditionalml/defs.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/data_type_utils.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/schema.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/protobuf/onnx-ml.pb.cc \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/protobuf/onnx-operators-ml.pb.cc \
-	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/checker.cpp \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/checker.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/onnx-ml.pb.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/onnx-operators-ml.pb.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/common/status.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/data_type_utils.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/function.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/schema.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/controlflow/defs.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/experiments/defs.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/generator/defs.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/logical/defs.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/logical/old.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/math/defs.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/math/old.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/nn/defs.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/nn/old.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/reduction/defs.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/rnn/defs.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/rnn/old.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/tensor/defs.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/tensor/old.cc \
+    $(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/traditionalml/defs.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/Operators.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/RNNHelper.cpp \
     $(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/CNTKToONNX.cpp \
@@ -562,7 +567,8 @@ CNTKLIBRARY:=Cntk.Core-$(CNTK_COMPONENT_VERSION)
 CNTKLIBRARY_OBJ:=\
 	$(patsubst %.cu, $(OBJDIR)/%.o, $(filter %.cu, $(CNTKLIBRARY_SRC))) \
 	$(patsubst %.pb.cc, $(OBJDIR)/%.pb.o, $(filter %.pb.cc, $(CNTKLIBRARY_SRC))) \
-	$(patsubst %.cpp, $(OBJDIR)/%.o, $(filter %.cpp, $(CNTKLIBRARY_SRC)))
+	$(patsubst %.cpp, $(OBJDIR)/%.o, $(filter %.cpp, $(CNTKLIBRARY_SRC))) \
+	$(patsubst %.cc, $(OBJDIR)/%.o, $(filter %.cc, $(CNTKLIBRARY_SRC)))
 
 CNTKLIBRARY_LIB:=$(LIBDIR)/lib$(CNTKLIBRARY).so
 ALL_LIBS+=$(CNTKLIBRARY_LIB)

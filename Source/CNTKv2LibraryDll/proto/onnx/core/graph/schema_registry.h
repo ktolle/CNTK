@@ -2,7 +2,7 @@
 #include "proto/onnx/core/common/common.h"
 #include "proto/onnx/core/graph/constants.h"
 #include "proto/onnx/core/common/status.h"
-#include "proto/onnx/onnx/defs/schema.h"
+#include "onnx/defs/schema.h"
 #include <mutex>
 #include "sstream"
 

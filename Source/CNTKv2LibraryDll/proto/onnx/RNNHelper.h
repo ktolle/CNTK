@@ -11,8 +11,6 @@
 #include "CNTKLibrary.h"
 #include "Utils.h"
 
-#include "proto/onnx/core/graph/model.h"
-
 #include <algorithm>
 #include "CNTKLibrary.h"
 #include <functional>

@@ -2,7 +2,7 @@
 
 #include <functional>
 #include <unordered_map>
-#include "proto/onnx/onnx/defs/schema.h"
+#include "onnx/defs/schema.h"
 #include "proto/onnx/core/common/status.h"
 #include "proto/onnx/core/graph/constants.h"
 

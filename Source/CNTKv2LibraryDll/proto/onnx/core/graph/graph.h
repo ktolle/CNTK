@@ -16,9 +16,9 @@
 #include "proto/onnx/core/common/const_pointer_container.h"
 #include "proto/onnx/core/graph/constants.h"
 #include "proto/onnx/core/graph/graph_nodes.h"
-#include "proto/onnx/onnx/defs/schema.h"
 #include "proto/onnx/core/graph/utils.h"
-#include "proto/onnx/onnx/onnx_pb.h"
+#include "onnx/defs/schema.h"
+#include "onnx/onnx_pb.h"
 
 using namespace onnx;
 

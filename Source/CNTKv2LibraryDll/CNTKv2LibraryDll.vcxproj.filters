@@ -63,50 +63,35 @@
     <ClCompile Include="proto\onnx\core\common\logging\capture.cpp">
       <Filter>proto\onnx\core\common\logging</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\protobuf\onnx-ml.pb.cc.VS_wrapper.cpp">
-      <Filter>proto\onnx\onnx\protobuf</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\experiments\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\experiments</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\controlflow\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\controlflow</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\generator\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\generator</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\experiments\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\experiments</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\logical\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\logical</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\generator\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\generator</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\math\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\math</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\logical\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\logical</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\nn\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\nn</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\math\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\math</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\reduction\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\reduction</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\nn\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\nn</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\rnn\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\rnn</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\reduction\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\reduction</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\tensor\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\tensor</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\rnn\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\rnn</Filter>
-    </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\tensor\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\tensor</Filter>
-    </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\traditionalml\defs.cpp">
-      <Filter>proto\onnx\onnx\defs\traditionalml</Filter>
-    </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\data_type_utils.cpp">
-      <Filter>proto\onnx\onnx\defs</Filter>
-    </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\schema.cpp">
-      <Filter>proto\onnx\onnx\defs</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\traditionalml\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\traditionalml</Filter>
     </ClCompile>
     <ClCompile Include="proto\onnx\core\graph\graph.cpp">
       <Filter>proto\onnx\core\graph</Filter>
-    </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\protobuf\onnx-operators-ml.pb.cc.VS_wrapper.cpp">
-      <Filter>proto\onnx\onnx\protobuf</Filter>
     </ClCompile>
     <ClCompile Include="proto\onnx\core\graph\model.cpp">
       <Filter>proto\onnx\core\graph</Filter>
@@ -120,20 +105,44 @@
     <ClCompile Include="proto\onnx\core\graph\graph_transformer.cpp">
       <Filter>proto\onnx\core\graph</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\math\old.cpp">
-      <Filter>proto\onnx\onnx\defs\math</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\math\old.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\math</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\nn\old.cpp">
-      <Filter>proto\onnx\onnx\defs\nn</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\nn\old.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\nn</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\rnn\old.cpp">
-      <Filter>proto\onnx\onnx\defs\rnn</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\rnn\old.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\rnn</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\defs\tensor\old.cpp">
-      <Filter>proto\onnx\onnx\defs\tensor</Filter>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\tensor\old.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\tensor</Filter>
     </ClCompile>
-    <ClCompile Include="proto\onnx\onnx\checker.cpp">
-      <Filter>proto\onnx\onnx</Filter>
+    <ClCompile Include="proto\onnx\protobuf\onnx-operators-ml.pb.cc.VS_wrapper.cpp">
+      <Filter>proto\onnx\protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\protobuf\onnx-ml.pb.cc.VS_wrapper.cpp">
+      <Filter>proto\onnx\protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\controlflow\defs.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\controlflow</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\checker.cc">
+      <Filter>proto\onnx\onnx1.2\onnx</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\common\status.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\logical\old.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs\logical</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\data_type_utils.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\function.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\schema.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\defs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,32 +238,17 @@
     <ClInclude Include="proto\onnx\core\inc\op_kernel_author_helper.h">
       <Filter>proto\onnx\core\inc</Filter>
     </ClInclude>
-    <ClInclude Include="proto\onnx\onnx\checker.h">
-      <Filter>proto\onnx\onnx</Filter>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\defs\data_type_utils.h">
+      <Filter>proto\onnx\onnx1.2\onnx\defs</Filter>
     </ClInclude>
-    <ClInclude Include="proto\onnx\onnx\onnx_pb.h">
-      <Filter>proto\onnx\onnx</Filter>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\defs\schema.h">
+      <Filter>proto\onnx\onnx1.2\onnx\defs</Filter>
     </ClInclude>
-    <ClInclude Include="proto\onnx\onnx\onnx-operators_pb.h">
-      <Filter>proto\onnx\onnx</Filter>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\defs\shape_inference.h">
+      <Filter>proto\onnx\onnx1.2\onnx\defs</Filter>
     </ClInclude>
-    <ClInclude Include="proto\onnx\onnx\proto_utils.h">
-      <Filter>proto\onnx\onnx</Filter>
-    </ClInclude>
-    <ClInclude Include="proto\onnx\onnx\string_utils.h">
-      <Filter>proto\onnx\onnx</Filter>
-    </ClInclude>
-    <ClInclude Include="proto\onnx\onnx\defs\data_type_utils.h">
-      <Filter>proto\onnx\onnx\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="proto\onnx\onnx\defs\schema.h">
-      <Filter>proto\onnx\onnx\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="proto\onnx\onnx\defs\shape_inference.h">
-      <Filter>proto\onnx\onnx\defs</Filter>
-    </ClInclude>
-    <ClInclude Include="proto\onnx\onnx\common\stl_backports.h">
-      <Filter>proto\onnx\onnx\common</Filter>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\stl_backports.h">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
     </ClInclude>
     <ClInclude Include="proto\onnx\core\graph\constants.h">
       <Filter>proto\onnx\core\graph</Filter>
@@ -295,6 +289,21 @@
     <ClInclude Include="proto\onnx\core\common\CommonSTD.h">
       <Filter>proto\onnx\core\common</Filter>
     </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\checker.h">
+      <Filter>proto\onnx\onnx1.2\onnx</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\onnx_pb.h">
+      <Filter>proto\onnx\onnx1.2\onnx</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\onnx-operators_pb.h">
+      <Filter>proto\onnx\onnx1.2\onnx</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\proto_utils.h">
+      <Filter>proto\onnx\onnx1.2\onnx</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\string_utils.h">
+      <Filter>proto\onnx\onnx1.2\onnx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="API">
@@ -321,50 +330,53 @@
     <Filter Include="proto\onnx\core\inc">
       <UniqueIdentifier>{c6e7230c-950a-4ecd-92da-0db3843d795c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="proto\onnx\onnx">
-      <UniqueIdentifier>{94c70c1f-9061-4e8c-a007-59207102b3f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs">
-      <UniqueIdentifier>{cb1e39c1-bd5e-4d7f-8c83-39de28e70307}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\generator">
-      <UniqueIdentifier>{e52f27a1-b8c4-4d67-874f-51aa43b04815}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\logical">
-      <UniqueIdentifier>{e8f5863d-409a-4b02-814b-a93241e4e56d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\math">
-      <UniqueIdentifier>{6a99c5c8-2686-4007-83ed-988b1e1ae852}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\nn">
-      <UniqueIdentifier>{7a757445-6a05-4bd2-b37d-6d95da3112fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\reduction">
-      <UniqueIdentifier>{cd1c3786-8e2a-44bf-a7fc-28114019cf2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\rnn">
-      <UniqueIdentifier>{4bc38915-7be4-42e2-951b-9445abf8038c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\tensor">
-      <UniqueIdentifier>{deb73515-13a1-4926-b5fc-e8c6e97f7784}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\traditionalml">
-      <UniqueIdentifier>{93c3d21c-112b-43df-b399-5e87b60020b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\controlflow">
-      <UniqueIdentifier>{0cdda0af-5fb7-4c4e-945e-8de6b93c476a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\defs\experiments">
-      <UniqueIdentifier>{6dcdcd92-1a6c-4e65-86ee-0967d3905966}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\protobuf">
-      <UniqueIdentifier>{77b30c82-208d-4c0d-825c-9b0eda61caa6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto\onnx\onnx\common">
-      <UniqueIdentifier>{bc2e7e0d-8620-40a5-8e1f-1cdda8880dd3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="proto\onnx\core\graph">
       <UniqueIdentifier>{c18a3bd0-c2dc-4a3d-8820-7c9972f65a5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2">
+      <UniqueIdentifier>{94c70c1f-9061-4e8c-a007-59207102b3f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx">
+      <UniqueIdentifier>{e8dce3e4-1176-416f-818b-26925351af93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs">
+      <UniqueIdentifier>{cb1e39c1-bd5e-4d7f-8c83-39de28e70307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\generator">
+      <UniqueIdentifier>{e52f27a1-b8c4-4d67-874f-51aa43b04815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\logical">
+      <UniqueIdentifier>{e8f5863d-409a-4b02-814b-a93241e4e56d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\math">
+      <UniqueIdentifier>{6a99c5c8-2686-4007-83ed-988b1e1ae852}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\nn">
+      <UniqueIdentifier>{7a757445-6a05-4bd2-b37d-6d95da3112fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\reduction">
+      <UniqueIdentifier>{cd1c3786-8e2a-44bf-a7fc-28114019cf2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\rnn">
+      <UniqueIdentifier>{4bc38915-7be4-42e2-951b-9445abf8038c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\tensor">
+      <UniqueIdentifier>{deb73515-13a1-4926-b5fc-e8c6e97f7784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\traditionalml">
+      <UniqueIdentifier>{93c3d21c-112b-43df-b399-5e87b60020b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\controlflow">
+      <UniqueIdentifier>{0cdda0af-5fb7-4c4e-945e-8de6b93c476a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\defs\experiments">
+      <UniqueIdentifier>{6dcdcd92-1a6c-4e65-86ee-0967d3905966}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\onnx1.2\onnx\common">
+      <UniqueIdentifier>{bc2e7e0d-8620-40a5-8e1f-1cdda8880dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\onnx\protobuf">
+      <UniqueIdentifier>{13041b95-fec2-422c-88b5-49763bcfe733}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -374,11 +386,11 @@
     <Proto Include="tensorboard\tensorboard.proto">
       <Filter>tensorboard</Filter>
     </Proto>
-    <Proto Include="proto\onnx\onnx\protobuf\onnx-ml.proto">
-      <Filter>proto\onnx\onnx\protobuf</Filter>
+    <Proto Include="proto\onnx\onnx1.2\onnx\onnx-ml.proto">
+      <Filter>proto\onnx\onnx1.2\onnx</Filter>
     </Proto>
-    <Proto Include="proto\onnx\onnx\protobuf\onnx-operators-ml.proto">
-      <Filter>proto\onnx\onnx\protobuf</Filter>
+    <Proto Include="proto\onnx\onnx1.2\onnx\onnx-operators-ml.proto">
+      <Filter>proto\onnx\onnx1.2\onnx</Filter>
     </Proto>
   </ItemGroup>
 </Project>

@@ -5,3 +5,7 @@
 	path = external/gsl
 	url = https://github.com/Microsoft/GSL.git
 	branch = d846fe5
+[submodule "Source/CNTKv2LibraryDll/proto/onnx/onnx1.2"]
+	path = Source/CNTKv2LibraryDll/proto/onnx/onnx1.2
+	url = https://github.com/onnx/onnx.git
+	branch = c7b6005

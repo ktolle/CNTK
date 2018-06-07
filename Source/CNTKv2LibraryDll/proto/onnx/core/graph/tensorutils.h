@@ -8,7 +8,7 @@
 
 #include "proto/onnx/core/common/common.h"
 #include "proto/onnx/core/common/status.h"
-#include "proto/onnx/onnx/onnx_pb.h"
+#include "onnx/onnx_pb.h"
 
 namespace ONNX
 {

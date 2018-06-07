@@ -10,7 +10,7 @@
 #include "op.h"
 #include "utils.h"
 #include "proto/onnx/core/common/logging/logging.h"
-#include "proto/onnx/onnx/checker.h"
+#include "onnx/checker.h"
 #include "proto/onnx/core/graph/schema_registry.h"
 
 using namespace onnx::Utils;
