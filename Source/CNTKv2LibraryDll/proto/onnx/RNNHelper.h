@@ -12,7 +12,6 @@
 #include "Utils.h"
 
 #include <algorithm>
-#include "CNTKLibrary.h"
 #include <functional>
 
 using namespace CNTK;

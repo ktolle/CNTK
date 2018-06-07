@@ -5,6 +5,11 @@
 
 #include "ONNX.h"
 #include "CNTKToONNX.h"
+
+// both CNTK and Lotus define make_unique causing redefined conflict in linux build.
+// use this flag to avoid the conflict.
+#define CNTK_make_unique_already_defined = 1
+
 #include "proto/onnx/core/graph/model.h"
 #include "proto/onnx/core/graph/graph.h"
 #include "Utils.h"

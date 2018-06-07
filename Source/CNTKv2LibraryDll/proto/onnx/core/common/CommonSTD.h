@@ -2,7 +2,7 @@
 #include <memory>
 #include <type_traits>
 
-#if defined(__GNUC__) && !defined(__cpp_lib_make_unique)
+#if defined(__GNUC__) && !defined(__cpp_lib_make_unique) && !defined(CNTK_make_unique_already_defined)
 namespace std {
 
     // make_unique was added in GCC 4.9.0. Requires using -std=c++11.
