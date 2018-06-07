@@ -3,7 +3,7 @@
 // Licensed under the MIT license. See LICENSE.md file in the project root for full license information.
 //
 
-#include "CNTKLibrary.h"
+#include "RNNHelper.h"
 
 // both CNTK and Lotus define make_unique causing redefined conflict in linux build.
 // use this flag to avoid the conflict.
@@ -11,9 +11,11 @@
 
 #include "proto/onnx/core/graph/model.h"
 
-#include "RNNHelper.h"
 #include "Operators.h"
+#include "Utils.h"
 
+
+using namespace CNTK;
 using namespace CNTK::ONNX;
 
 std::string MapActivationNameONNXToCNTK(const std::string &onnxOp)
