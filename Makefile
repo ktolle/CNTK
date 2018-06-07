@@ -1257,22 +1257,22 @@ INCLUDEPATH += $(BOOST_PATH)/include
 BOOSTLIB_PATH = $(BOOST_PATH)/lib
 BOOSTLIBS := -lboost_unit_test_framework -lboost_filesystem -lboost_system
 
-UNITTEST_EVAL_SRC = \
-	$(SOURCEDIR)/../Tests/UnitTests/EvalTests/EvalExtendedTests.cpp \
-	$(SOURCEDIR)/../Tests/UnitTests/EvalTests/stdafx.cpp
+#UNITTEST_EVAL_SRC = \
+#	$(SOURCEDIR)/../Tests/UnitTests/EvalTests/EvalExtendedTests.cpp \
+#	$(SOURCEDIR)/../Tests/UnitTests/EvalTests/stdafx.cpp
 
-UNITTEST_EVAL_OBJ := $(patsubst %.cpp, $(OBJDIR)/%.o, $(UNITTEST_EVAL_SRC))
+#UNITTEST_EVAL_OBJ := $(patsubst %.cpp, $(OBJDIR)/%.o, $(UNITTEST_EVAL_SRC))
 
-UNITTEST_EVAL := $(BINDIR)/evaltests
+#UNITTEST_EVAL := $(BINDIR)/evaltests
 
-ALL += $(UNITTEST_EVAL)
-SRC += $(UNITTEST_EVAL_SRC)
+#ALL += $(UNITTEST_EVAL)
+#SRC += $(UNITTEST_EVAL_SRC)
 
-$(UNITTEST_EVAL) : $(UNITTEST_EVAL_OBJ) | $(EVAL_LIB) $(READER_LIBS)
-	@echo $(SEPARATOR)
-	@mkdir -p $(dir $@)
-	@echo building $@ for $(ARCH) with build type $(BUILDTYPE)
-	$(CXX) -DONNX_NAMESPACE=onnx -DONNX_ML=1 $(LDFLAGS) $(patsubst %,-L%, $(LIBDIR) $(LIBPATH) $(GDK_NVML_LIB_PATH) $(BOOSTLIB_PATH)) $(patsubst %, $(RPATH)%, $(ORIGINLIBDIR) $(LIBPATH) $(BOOSTLIB_PATH)) -o $@ $^ $(BOOSTLIBS) $(LIBS) -l$(EVAL) $(L_READER_LIBS) $(lMULTIVERSO)
+#$(UNITTEST_EVAL) : $(UNITTEST_EVAL_OBJ) | $(EVAL_LIB) $(READER_LIBS)
+#	@echo $(SEPARATOR)
+#	@mkdir -p $(dir $@)
+#	@echo building $@ for $(ARCH) with build type $(BUILDTYPE)
+#	$(CXX) -DONNX_NAMESPACE=onnx -DONNX_ML=1 $(LDFLAGS) $(patsubst %,-L%, $(LIBDIR) $(LIBPATH) $(GDK_NVML_LIB_PATH) $(BOOSTLIB_PATH)) $(patsubst %, $(RPATH)%, $(ORIGINLIBDIR) $(LIBPATH) $(BOOSTLIB_PATH)) -o $@ $^ $(BOOSTLIBS) $(LIBS) -l$(EVAL) $(L_READER_LIBS) $(lMULTIVERSO)
 
 #TODO: create project specific makefile or rules to avoid adding project specific path to the global path
 INCLUDEPATH += $(SOURCEDIR)/Readers/CNTKTextFormatReader
