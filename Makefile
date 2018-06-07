@@ -1606,6 +1606,12 @@ $(OBJDIR)/%.o : %.cpp $(BUILD_CONFIGURATION)
 	@mkdir -p $(dir $@)
 	$(CXX) -c $< -o $@ -DONNX_NAMESPACE=onnx -DONNX_ML=1 $(COMMON_FLAGS) $(CPPFLAGS) $(CXXFLAGS) $(INCLUDEPATH:%=-I%) -MD -MP -MF ${@:.o=.d}
 
+$(OBJDIR)/%.o : %.cc $(BUILD_CONFIGURATION)
+	@echo $(SEPARATOR)
+	@echo creating $@ for $(ARCH) with build type $(BUILDTYPE)
+	@mkdir -p $(dir $@)
+	$(CXX) -c $< -o $@ -DONNX_NAMESPACE=onnx -DONNX_ML=1 $(COMMON_FLAGS) $(CPPFLAGS) $(CXXFLAGS) $(INCLUDEPATH:%=-I%) -MD -MP -MF ${@:.o=.d}
+
 .PHONY: clean buildall all unittests
 
 clean:
