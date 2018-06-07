@@ -202,6 +202,14 @@
     <ClInclude Include="proto\onnx\core\inc\op_kernel_author.h" />
     <ClInclude Include="proto\onnx\core\inc\op_kernel_author_helper.h" />
     <ClInclude Include="proto\onnx\ONNX.h" />
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\array_ref.h" />
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\assertions.h" />
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\graph_node_list.h" />
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\interned_strings.h" />
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\ir.h" />
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\ir_pb_converter.h" />
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\status.h" />
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\tensor.h" />
     <ClInclude Include="proto\onnx\ONNXToCNTK.h" />
     <ClInclude Include="proto\onnx\onnx1.2\onnx\checker.h" />
     <ClInclude Include="proto\onnx\onnx1.2\onnx\common\stl_backports.h" />
@@ -258,6 +266,9 @@
     <ClCompile Include="proto\onnx\core\graph\tensorutils.cpp" />
     <ClCompile Include="proto\onnx\ONNX.cpp" />
     <ClCompile Include="proto\onnx\onnx1.2\onnx\checker.cc" />
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\common\assertions.cc" />
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\common\interned_strings.cc" />
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\common\ir_pb_converter.cc" />
     <ClCompile Include="proto\onnx\onnx1.2\onnx\common\status.cc" />
     <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\data_type_utils.cc" />
     <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\function.cc" />

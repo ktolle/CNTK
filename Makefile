@@ -527,6 +527,9 @@ CNTKLIBRARY_COMMON_SRC =\
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/checker.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/onnx-ml.pb.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/onnx-operators-ml.pb.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/common/assertions.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/common/interned_strings.cc \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/common/ir_pb_converter.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/common/status.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/data_type_utils.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx1.2/onnx/defs/function.cc \

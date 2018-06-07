@@ -144,6 +144,15 @@
     <ClCompile Include="proto\onnx\onnx1.2\onnx\defs\schema.cc">
       <Filter>proto\onnx\onnx1.2\onnx\defs</Filter>
     </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\common\assertions.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\common\interned_strings.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\onnx\onnx1.2\onnx\common\ir_pb_converter.cc">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -303,6 +312,30 @@
     </ClInclude>
     <ClInclude Include="proto\onnx\onnx1.2\onnx\string_utils.h">
       <Filter>proto\onnx\onnx1.2\onnx</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\array_ref.h">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\assertions.h">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\graph_node_list.h">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\interned_strings.h">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\ir.h">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\ir_pb_converter.h">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\status.h">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\onnx\onnx1.2\onnx\common\tensor.h">
+      <Filter>proto\onnx\onnx1.2\onnx\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
