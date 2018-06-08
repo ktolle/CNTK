@@ -6,6 +6,8 @@
 #include <exception>
 #include <string>
 
+#define ONNX_NAMESPACE onnx
+
 namespace ONNX_NAMESPACE {
 
 struct assert_error final : public std::exception {
