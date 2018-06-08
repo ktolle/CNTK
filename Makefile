@@ -528,6 +528,7 @@ CNTKLIBRARY_COMMON_SRC =\
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/controlflow/defs.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/experiments/defs.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/generator/defs.cpp \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/generator/old.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/logical/defs.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/math/defs.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/math/old.cpp \
@@ -541,6 +542,7 @@ CNTKLIBRARY_COMMON_SRC =\
     $(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/traditionalml/defs.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/data_type_utils.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/defs/schema.cpp \
+	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/common/assertions.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/protobuf/onnx-ml.pb.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/protobuf/onnx-operators-ml.pb.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/onnx/checker.cpp \
