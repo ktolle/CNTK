@@ -515,7 +515,9 @@ CNTKLIBRARY_COMMON_SRC =\
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/CNTK.pb.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/tensorboard/tensorboard.pb.cc \
 	$(SOURCEDIR)/CNTKv2LibraryDll/tensorboard/TensorBoardFileWriter.cpp \
-	$(SOURCEDIR)/CNTKv2LibraryDll/tensorboard/TensorBoardUtils.cpp \
+	$(SOURCEDIR)/CNTKv2LibraryDll/tensorboard/TensorBoardUtils.cpp
+
+CNTKLIBRARY_ONNX_SRC =\
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/core/common/logging/capture.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/core/common/logging/logging.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/proto/onnx/core/common/status.cpp \
@@ -561,6 +563,7 @@ CNTKLIBRARY_SRC =\
 	$(SOURCEDIR)/CNTKv2LibraryDll/TrainingSession.cpp \
 
 CNTKLIBRARY_SRC+=$(CNTKLIBRARY_COMMON_SRC)
+CNTKLIBRARY_SRC+=$(CNTKLIBRARY_ONNX_SRC)
 CNTKLIBRARY_SRC+=$(CNTK_COMMON_SRC)
 CNTKLIBRARY_SRC+=$(COMPUTATION_NETWORK_LIB_SRC)
 CNTKLIBRARY_SRC+=$(SEQUENCE_TRAINING_LIB_SRC)
