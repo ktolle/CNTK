@@ -8,10 +8,10 @@ using namespace ONNX_NAMESPACE;
 namespace ONNX_NAMESPACE {
 
 inline void logicalOpInference_opset1(InferenceContext& ctx) {
-	updateOutputElemType(ctx, 0, TensorProto::BOOL);
-	if (hasInputShape(ctx, 0)) {
-		propagateShapeFromInputToOutput(ctx, 0, 0);
-	}
+    updateOutputElemType(ctx, 0, TensorProto::BOOL);
+    if (hasInputShape(ctx, 0)) {
+        propagateShapeFromInputToOutput(ctx, 0, 0);
+    }
 }
 
 std::function<void(OpSchema&)> BinaryLogicDocGenerator_opset1(const char* name) {
@@ -32,8 +32,8 @@ detailed description of the broadcasting rules.
                     OPTIONAL);
         schema.Input(0, "A", "Left input tensor for the logical operator.", "T");
         schema.Input(1, "B", "Right input tensor for the logical operator.", "T");
-		schema.Output(0, "C", "Result tensor.", "T1");
-		schema.TypeAndShapeInferenceFunction(logicalOpInference_opset1);
+        schema.Output(0, "C", "Result tensor.", "T1");
+        schema.TypeAndShapeInferenceFunction(logicalOpInference_opset1);
     };
 }
 

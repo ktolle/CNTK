@@ -10,24 +10,24 @@ namespace ONNX_NAMESPACE {
 
 class InferenceError final : public std::runtime_error {
 public:
-	using std::runtime_error::runtime_error;
+    using std::runtime_error::runtime_error;
 
-	InferenceError(const std::string& message) : std::runtime_error(message) {}
+    InferenceError(const std::string& message) : std::runtime_error(message) {}
 
-	const char* what() const noexcept override {
-		if (!expanded_message_.empty()) {
-			return expanded_message_.c_str();
-		}
-		return std::runtime_error::what();
-	}
+    const char* what() const noexcept override {
+        if (!expanded_message_.empty()) {
+            return expanded_message_.c_str();
+        }
+        return std::runtime_error::what();
+    }
 
-	void AppendContext(const std::string& context) {
-		expanded_message_ = ONNX_NAMESPACE::MakeString(
-			std::runtime_error::what(), "\n\n==> Context: ", context);
-	}
+    void AppendContext(const std::string& context) {
+        expanded_message_ = ONNX_NAMESPACE::MakeString(
+            std::runtime_error::what(), "\n\n==> Context: ", context);
+    }
 
 private:
-	std::string expanded_message_;
+    std::string expanded_message_;
 };
 
 #define fail_type_inference(...)             \
@@ -85,9 +85,9 @@ inline TensorShapeProto::Dimension operator*(TensorShapeProto::Dimension dim1, T
   TensorShapeProto::Dimension result;
   if (dim1.has_dim_value() && dim2.has_dim_value()) {
     result.set_dim_value(dim1.dim_value() * dim2.dim_value());
-  }	else if (dim1.has_dim_value() && (dim1.dim_value() == 1)) {
+  }    else if (dim1.has_dim_value() && (dim1.dim_value() == 1)) {
     return dim2;
-  }	else if (dim2.has_dim_value() && (dim2.dim_value() == 1)) {
+  }    else if (dim2.has_dim_value() && (dim2.dim_value() == 1)) {
     return dim1;
   }
   return result;
@@ -96,8 +96,8 @@ inline TensorShapeProto::Dimension operator*(TensorShapeProto::Dimension dim1, T
 inline TensorShapeProto::Dimension operator*(TensorShapeProto::Dimension dim1, int64_t dim2) {
   TensorShapeProto::Dimension result;
   if (dim1.has_dim_value()) {
-	  result.set_dim_value(dim1.dim_value() * dim2);
-  }	else if (dim2 == 1) {
+      result.set_dim_value(dim1.dim_value() * dim2);
+  }    else if (dim2 == 1) {
     return dim1;
   }
   return result;
@@ -107,7 +107,7 @@ inline TensorShapeProto::Dimension operator/(TensorShapeProto::Dimension dim1, i
   TensorShapeProto::Dimension result;
   if (dim1.has_dim_value()) {
     result.set_dim_value(dim1.dim_value() / dim2);
-  }	else if (dim2 == 1) {
+  }    else if (dim2 == 1) {
     return dim1;
   }
   return result;
@@ -134,10 +134,10 @@ inline void propagateElemTypeFromInputToOutput(
   auto input_type = ctx.getInputType(inputIndex);
   if (nullptr == input_type ||
       input_type->value_case() != TypeProto::kTensorType) {
-	fail_type_inference("Input ", inputIndex, " expected to have tensor type");
+    fail_type_inference("Input ", inputIndex, " expected to have tensor type");
   }
   if (input_type->tensor_type().elem_type() == TensorProto::UNDEFINED) {
-	fail_type_inference("Element type of input ", inputIndex, " unknown");
+    fail_type_inference("Element type of input ", inputIndex, " unknown");
   }
   auto output_type = ctx.getOutputType(outputIndex);
   if (output_type->value_case() == TypeProto::kTensorType ||
@@ -145,8 +145,8 @@ inline void propagateElemTypeFromInputToOutput(
     output_type->mutable_tensor_type()->set_elem_type(
         input_type->tensor_type().elem_type());
   } else {
-	// This is not expected to happen
-	fail_type_inference("Output ", outputIndex, " expected to have tensor type");
+    // This is not expected to happen
+    fail_type_inference("Output ", outputIndex, " expected to have tensor type");
   }
 }
 
@@ -181,7 +181,7 @@ inline void appendSingleDimCopiedFromInputTypeToOutputType(
     fail_type_inference("Output ", outputIndex, " expected to have tensor type");
   }
   if (TypeProto::kTensorType != input_type->value_case()) {
-	fail_type_inference("Input ", inputIndex, " expected to have tensor type");
+    fail_type_inference("Input ", inputIndex, " expected to have tensor type");
   }
   auto* dim = ctx.getOutputType(outputIndex)
                   ->mutable_tensor_type()
@@ -226,8 +226,8 @@ inline void updateOutputElemType(
        output_type->value_case() == TypeProto::VALUE_NOT_SET)) {
     output_type->mutable_tensor_type()->set_elem_type(elemType);
   } else {
-	// This is not expected to happen
-	fail_type_inference("Output ", outputIndex, " expected to have tensor type");
+    // This is not expected to happen
+    fail_type_inference("Output ", outputIndex, " expected to have tensor type");
   }
 }
 
@@ -242,17 +242,17 @@ inline void propagateElemTypeFromAttributeToOutput(
   if (nullptr == attr_proto) { // attribute not present
     if (default_value != TensorProto::UNDEFINED) {
       updateOutputElemType(ctx, outputIndex, default_value);
-	  return;
-	} else
-	  fail_type_inference("Value of attribute ", attributeName, " not specified");
+      return;
+    } else
+      fail_type_inference("Value of attribute ", attributeName, " not specified");
   }
   if (!attr_proto->has_i()) {
-	  fail_type_inference("Attribute ", attributeName, " should be of integer type and specify a type.");
+      fail_type_inference("Attribute ", attributeName, " should be of integer type and specify a type.");
   }
   auto attr_value = attr_proto->i();
   auto elem_type = static_cast<TensorProto_DataType>(attr_value);
   if (!TensorProto_DataType_IsValid(elem_type)) {
-	  fail_type_inference("Attribute ", attributeName, " does not specify a valid type.");
+      fail_type_inference("Attribute ", attributeName, " does not specify a valid type.");
   }
   updateOutputElemType(ctx, outputIndex, elem_type);
 }
@@ -263,8 +263,8 @@ inline TensorShapeProto* getOutputShape(InferenceContext& ctx, size_t n) {
       (output_type->value_case() == TypeProto::kTensorType ||
        output_type->value_case() == TypeProto::VALUE_NOT_SET)) {
          return output_type->mutable_tensor_type()->mutable_shape();
-	} else
-	  fail_type_inference("Output ", n, " expected to have tensor type");
+    } else
+      fail_type_inference("Output ", n, " expected to have tensor type");
 }
 
 inline void updateOutputShape(
@@ -287,9 +287,9 @@ inline void updateOutputShape(
 }
 
 inline void updateOutputShape(
-	InferenceContext& ctx,
-	size_t outputIndex,
-	std::initializer_list<TensorShapeProto::Dimension> dims) {
+    InferenceContext& ctx,
+    size_t outputIndex,
+    std::initializer_list<TensorShapeProto::Dimension> dims) {
   auto* output_shape = getOutputShape(ctx, outputIndex);
   for (auto& d : dims) {
     auto* dim = output_shape->add_dim();
@@ -308,14 +308,14 @@ inline void propagateShapeFromAttributeToOutput(
   if ((nullptr == attr_proto) ||
       (!attr_proto->has_type()) ||
       (attr_proto->type() != AttributeProto_AttributeType_INTS)) {
-	fail_shape_inference("Attribute ", attributeName, " should specify a shape");
+    fail_shape_inference("Attribute ", attributeName, " should specify a shape");
   }
   auto& int_list = attr_proto->ints();
   TensorShapeProto shape;
   for (auto dim_size : int_list) {
     if (dim_size < 0) {
-		fail_shape_inference("Negative values are not allowed in a shape specification");
-	}
+        fail_shape_inference("Negative values are not allowed in a shape specification");
+    }
     shape.add_dim()->set_dim_value(dim_size);
   }
 
