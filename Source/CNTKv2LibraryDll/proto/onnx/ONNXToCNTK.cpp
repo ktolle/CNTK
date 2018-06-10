@@ -1962,7 +1962,6 @@ FunctionPtr ONNXToCNTKHelper::CreateFunction(const Node *node, const std::vector
     }
     else if (onnxOpName == "BatchNormalization" || onnxOpName == "SpatialBN")
     {
-        // TODO: implement this right once ready.
         const Variable &operand = inputs[0];
         const Variable &scale = inputs[1];
         const Variable &bias = inputs[2];
