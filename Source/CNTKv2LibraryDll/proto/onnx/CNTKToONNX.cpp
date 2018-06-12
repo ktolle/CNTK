@@ -1731,7 +1731,6 @@ ONNXIR::Node* CNTKToONNXHelper::CreateLSTMNode(const FunctionPtr &src,
     // std::vector<float> activation_alpha;    // no supported activation need alpha.
     // std::vector<float> activation_beta;    // no supported activation need beta.
     int hidden_size = lstms[0]->Outputs()[0].Shape()[0];
-    int output_sequence = RNNOutputSequence;        // LSTM in CNTK always output full sequence of output
 
     // TODO: implement peephole
     // Variable P;
@@ -1805,24 +1804,16 @@ ONNXIR::Node* CNTKToONNXHelper::CreateLSTMNode(const FunctionPtr &src,
 
     std::vector<ONNXIR::NodeArg *> nodeOutputs;
     {
-        if (output_sequence == 1)
-        {
-            std::string nodeName;
-            if (lstms.size() == 1)
-                nodeName = ToString(Yhs[0].Uid());
-            else
-                nodeName = ToString(src->Output().Uid());
-
-            auto outputArgType = ToTypeProto(std::vector<int>({FreeSequenceLen, (int)Yhs.size(), FreeBatchSize, (int)Yhs[0].Shape()[0]}), false);
-            UpdateONNXType(Yhs[0].GetDataType(), outputArgType);
-            ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeName, &outputArgType);
-            nodeOutputs.push_back(&outputArg);
-        }
+        std::string nodeName;
+        if (lstms.size() == 1)
+            nodeName = ToString(Yhs[0].Uid());
         else
-        {
-            ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg("", nullptr);
-            nodeOutputs.push_back(&outputArg);
-        }
+            nodeName = ToString(src->Output().Uid());
+
+        auto outputArgType = ToTypeProto(std::vector<int>({FreeSequenceLen, (int)Yhs.size(), FreeBatchSize, (int)Yhs[0].Shape()[0]}), false);
+        UpdateONNXType(Yhs[0].GetDataType(), outputArgType);
+        ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeName, &outputArgType);
+        nodeOutputs.push_back(&outputArg);
 
         {
             Variable Yh = Yhs[0];
@@ -1857,7 +1848,6 @@ ONNXIR::Node* CNTKToONNXHelper::CreateLSTMNode(const FunctionPtr &src,
     lstmNode->AddAttribute("activations", activations);
     lstmNode->AddAttribute("direction", direction);
     lstmNode->AddAttribute("hidden_size", (int64_t)hidden_size);
-    lstmNode->AddAttribute("output_sequence", (int64_t)output_sequence);
 
     // TODO: make bidirectional LSTM work by figuring out output data
     // layout transpose in InsertReshapeNodeToCNTKFunction.
@@ -2094,27 +2084,18 @@ ONNXIR::Node *CNTKToONNXHelper::CreateGRUNode(const FunctionPtr &src,
         }
     }
 
-    const int output_sequence = RNNOutputSequence;       // GRU in CNTK always output full sequence of output
     std::vector<ONNXIR::NodeArg *> nodeOutputs;
     {
-        if (output_sequence == 1)
-        {
-            std::string nodeName;
-            if (grus.size() == 1)
-                nodeName = ToString(Yhs[0].Uid());
-            else
-                nodeName = ToString(src->Output().Uid());
-
-            auto outputArgType = ToTypeProto(std::vector<int>({ FreeSequenceLen, (int)Yhs.size(), FreeBatchSize, (int)Yhs[0].Shape()[0] }), false);
-            UpdateONNXType(Yhs[0].GetDataType(), outputArgType);
-            ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeName, &outputArgType);
-            nodeOutputs.push_back(&outputArg);
-        }
+        std::string nodeName;
+        if (grus.size() == 1)
+            nodeName = ToString(Yhs[0].Uid());
         else
-        {
-            ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg("", nullptr);
-            nodeOutputs.push_back(&outputArg);
-        }
+            nodeName = ToString(src->Output().Uid());
+
+        auto outputArgType = ToTypeProto(std::vector<int>({ FreeSequenceLen, (int)Yhs.size(), FreeBatchSize, (int)Yhs[0].Shape()[0] }), false);
+        UpdateONNXType(Yhs[0].GetDataType(), outputArgType);
+        ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeName, &outputArgType);
+        nodeOutputs.push_back(&outputArg);
 
         {
             Variable Yh = Yhs[0];
@@ -2141,7 +2122,6 @@ ONNXIR::Node *CNTKToONNXHelper::CreateGRUNode(const FunctionPtr &src,
     gruNode->AddAttribute("activations", activations);
     gruNode->AddAttribute("direction", direction);
     gruNode->AddAttribute("hidden_size", (int64_t)hidden_size);
-    gruNode->AddAttribute("output_sequence", (int64_t)output_sequence);
 
     // TODO: make bidirectional GRU work by figuring out output data
     // layout transpose in InsertReshapeNodeToCNTKFunction.
@@ -2307,27 +2287,18 @@ ONNXIR::Node *CNTKToONNXHelper::CreateRNNNode(const FunctionPtr &src,
         }
     }
 
-    const int output_sequence = RNNOutputSequence;       // RNN in CNTK always output full sequence of output
     std::vector<ONNXIR::NodeArg *> nodeOutputs;
     {
-        if (output_sequence == 1)
-        {
-            std::string nodeName;
-            if (rnns.size() == 1)
-                nodeName = ToString(Yhs[0].Uid());
-            else
-                nodeName = ToString(src->Output().Uid());
-
-            auto outputArgType = ToTypeProto(std::vector<int>({ FreeSequenceLen, (int)Yhs.size(), FreeBatchSize, (int)Yhs[0].Shape()[0] }), false);
-            UpdateONNXType(Yhs[0].GetDataType(), outputArgType);
-            ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeName, &outputArgType);
-            nodeOutputs.push_back(&outputArg);
-        }
+        std::string nodeName;
+        if (rnns.size() == 1)
+            nodeName = ToString(Yhs[0].Uid());
         else
-        {
-            ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg("", nullptr);
-            nodeOutputs.push_back(&outputArg);
-        }
+            nodeName = ToString(src->Output().Uid());
+
+        auto outputArgType = ToTypeProto(std::vector<int>({ FreeSequenceLen, (int)Yhs.size(), FreeBatchSize, (int)Yhs[0].Shape()[0] }), false);
+        UpdateONNXType(Yhs[0].GetDataType(), outputArgType);
+        ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeName, &outputArgType);
+        nodeOutputs.push_back(&outputArg);
 
         {
             Variable Yh = Yhs[0];
@@ -2351,7 +2322,6 @@ ONNXIR::Node *CNTKToONNXHelper::CreateRNNNode(const FunctionPtr &src,
     rnnNode->AddAttribute("activations", activations);
     rnnNode->AddAttribute("direction", direction);
     rnnNode->AddAttribute("hidden_size", (int64_t)hidden_size);
-    rnnNode->AddAttribute("output_sequence", (int64_t)output_sequence);
 
     //// TODO: make bidirectional RNN work by figuring out output data
     //// layout transpose in InsertReshapeNodeToCNTKFunction.
@@ -3724,7 +3694,6 @@ ONNXIR::Node* CNTKToONNXHelper::CreateONNXNodesForOptimizedRNNStack(const Functi
         functionNode->AddAttribute("activations", activations);
         functionNode->AddAttribute("direction", bidirectional ? "bidirectional" : "forward");
         functionNode->AddAttribute("hidden_size", (int64_t) hiddenSize);
-        functionNode->AddAttribute("output_sequence", outputSequence);
 
         layerInputOperandArg = &outputArg_Y; // Output of this layer is the input to the next layer in the loop.
         inputNeedsShapeAdapter = true;       // To enable shape adapter to allow stacking for next layer.
