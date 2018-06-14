@@ -219,25 +219,35 @@ ReturnT UTF8ToUTFXXImpl(char const* str, ConvertFuncT const& func)
     return buffer;
 }
 
-static inline std::vector<unsigned char> ToUTF8_WcharSize(wchar_t const* str, std::integral_constant<size_t, 2>)
+template <typename T>
+std::vector<unsigned char> ToUTF8_WcharSize(T const* str, std::integral_constant<size_t, 2>)
 {
+    static_assert(std::is_same<T, wchar_t>::value, "Template in support of SFINAE");
+
     // Convert from UCS-2 to UTF8 using a UTF16 algorithm. This is safe since UCS-2 is a subset of UTF16
     return ToUTF8Impl(reinterpret_cast<char16_t const*>(str), &std::c16rtomb);
 }
 
-static inline std::vector<unsigned char> ToUTF8_WcharSize(wchar_t const* str, std::integral_constant<size_t, 4>)
+template <typename T>
+std::vector<unsigned char> ToUTF8_WcharSize(T const* str, std::integral_constant<size_t, 4>)
 {
+    static_assert(std::is_same<T, wchar_t>::value, "Template in support of SFINAE");
+
     // Convert from UCS-4 to UTF8 using a UTF32 algorithm. This is safe since UCS-4 == UTF32
     return ToUTF8Impl(reinterpret_cast<char32_t const*>(str), &std::c32rtomb);
 }
 
-static inline std::u16string ToUTF16_WcharSize(wchar_t const* str, std::integral_constant<size_t, 2>)
+template <typename T>
+std::u16string ToUTF16_WcharSize(T const* str, std::integral_constant<size_t, 2>)
 {
+    static_assert(std::is_same<T, wchar_t>::value, "Template in the name of SFINAE");
     return SimpleConversionImpl<std::u16string>(str);
 }
 
-static inline std::u16string ToUTF16_WcharSize(wchar_t const* str, std::integral_constant<size_t, 4>)
+template <typename T>
+std::u16string ToUTF16_WcharSize(T const* str, std::integral_constant<size_t, 4>)
 {
+    static_assert(std::is_same<T, wchar_t>::value, "Template in the name of SFINAE");
     return ToUTF16(ToUTF8(str));
 }
 
@@ -357,23 +367,32 @@ static inline std::u32string ToUTF32(std::u16string const& value)
 namespace
 {
 
-static inline std::string ToString_WcharSize(wchar_t const* str, std::integral_constant<size_t, 4>)
+template <typename T> 
+std::string ToString_WcharSize(T const* str, std::integral_constant<size_t, 4>)
 {
+    static_assert(std::is_same<T, wchar_t>::value, "Template in support of SFINAE");
     return ToString(reinterpret_cast<char32_t const*>(str));
 }
 
-static inline std::string ToString_WcharSize(wchar_t const* str, std::integral_constant<size_t, 2>)
+template <typename T>
+std::string ToString_WcharSize(T const* str, std::integral_constant<size_t, 2>)
 {
+    static_assert(std::is_same<T, wchar_t>::value, "Template in support of SFINAE");
     return ToString(ToUTF32(str));
 }
 
-static inline std::wstring ToWString_WcharSize(char32_t const* str, std::integral_constant<size_t, 4>)
+template <typename T>
+std::wstring ToWString_WcharSize(T const* str, std::integral_constant<size_t, 4>)
 {
+    static_assert(std::is_same<T, char32_t>::value, "Template in support of SFINAE");
     return reinterpret_cast<wchar_t const*>(str);
 }
 
-static inline std::wstring ToWString_WcharSize(char32_t const* str, std::integral_constant<size_t, 2>)
+template <typename T>
+std::wstring ToWString_WcharSize(T const* str, std::integral_constant<size_t, 2>)
 {
+    static_assert(std::is_same<T, char32_t>::value, "Template in support of SFINAE");
+
     std::wstring result;
 
     while (*str)

@@ -848,7 +848,6 @@ void LibSVMBinaryReader<ElemType>::RenamedMatrices(const ConfigRecordType& confi
         // see if we have a config parameters that contains a "dim" element, it's a sub key, use it
         if (temp.ExistsCurrent(L"rename"))
         {
-            // BugBug (broda): I'm not comfortable with this one; was going from wstring to utf16. Implies that we are actually using UTF16
             std::wstring ren = temp(L"rename");
             rename.emplace(id, ren);
         }

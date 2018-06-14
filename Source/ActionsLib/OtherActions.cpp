@@ -548,7 +548,7 @@ void DoTopologyPlot(const ConfigParameters& config)
     {
         fprintf(stderr, "Executing third-party tool for rendering dot:\n%ls\n", renderCmd.c_str());
 #ifdef __unix__
-        auto rc = system(msra::strfun::utf8(renderCmd).c_str());
+        auto rc = system(Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(renderCmd)).c_str());
         rc; // ignoring the result--this gets flagged by gcc if we don't save the return value
 #else
 #ifdef CNTK_UWP
