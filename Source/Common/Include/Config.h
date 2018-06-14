@@ -125,7 +125,7 @@ public:
 
     operator std::wstring() const
     {
-        return msra::strfun::utf16(*this);
+        return Microsoft::MSR::CNTK::ToWString(*this, false);
     }
     operator double() const
     {
@@ -877,7 +877,7 @@ public:
     // Insert - insert a new name and value into the dictionary
     void Insert(const std::wstring& name, const std::string& val)
     {
-        Insert(msra::strfun::utf8(name), val);
+        Insert(Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(name)), val);
     }
 
     // Insert - insert a new name and value into the dictionary
@@ -910,7 +910,7 @@ public:
 
     bool Exists(const std::wstring& name) const
     {
-        return Exists(msra::strfun::utf8(name));
+        return Exists(Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(name)));
     }
 
     bool Exists(const std::string& name) const
@@ -949,7 +949,7 @@ public:
     ConfigValue operator()(const std::string& name,
                            const wchar_t* defaultvalue) const
     {
-        return operator()(name, msra::strfun::utf8(defaultvalue).c_str());
+        return operator()(name, Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(defaultvalue)).c_str());
     }
 
     // dict(name, default) for strings
@@ -1176,7 +1176,7 @@ public:
     }
     bool Match(const std::wstring& key, const std::wstring& compareValue) const
     {
-        return Match(string(key.begin(), key.end()), msra::strfun::utf8(compareValue));
+        return Match(string(key.begin(), key.end()), Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(compareValue)));
     }
 
     // return the entire path to this config element

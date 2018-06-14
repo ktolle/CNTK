@@ -442,8 +442,8 @@ void SequenceReader<ElemType>::InitFromConfig(const ConfigRecordType& readerConf
 
         // TODO: use a reference for m_labelInfo[index]
         m_labelInfo[index].numIds = 0;
-        m_labelInfo[index].beginSequence = msra::strfun::utf8(labelConfig(L"beginSequence", L""));
-        m_labelInfo[index].endSequence   = msra::strfun::utf8(labelConfig(L"endSequence",   L""));
+        m_labelInfo[index].beginSequence = Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(labelConfig(L"beginSequence", L"")));
+        m_labelInfo[index].endSequence = Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(labelConfig(L"endSequence", L"")));
 
         // determine label type desired
         wstring labelType(labelConfig(L"labelType", L"Category"));
@@ -1426,7 +1426,7 @@ void BatchSequenceReader<ElemType>::InitFromConfig(const ConfigRecordType& reade
         LogicError("unsupported format %ls", mode.c_str());
 
     // unk sybol
-    mUnk = msra::strfun::utf8(readerConfig(L"unk", L"<unk>"));
+    mUnk = Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(readerConfig(L"unk", L"<unk>")));
 
     m_classSize = 0;
     m_featureDim = m_featuresName.empty() ? 0 : featureConfig(L"dim");
@@ -1438,8 +1438,8 @@ void BatchSequenceReader<ElemType>::InitFromConfig(const ConfigRecordType& reade
         const ConfigRecordType& labelConfig = readerConfig(m_labelsName[index].c_str(), ConfigRecordType::Record());
 
         labelInfo.numIds = 0; // if no mapping or word-class file is read, then we build the mapping on the fly
-        labelInfo.beginSequence = msra::strfun::utf8(labelConfig(L"beginSequence", L""));
-        labelInfo.endSequence   = msra::strfun::utf8(labelConfig(L"endSequence",   L""));
+        labelInfo.beginSequence = Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(labelConfig(L"beginSequence", L"")));
+        labelInfo.endSequence = Microsoft::MSR::CNTK::ToLegacyString(Microsoft::MSR::CNTK::ToUTF8(labelConfig(L"endSequence", L"")));
 
         // determine label type desired
         std::string labelType(labelConfig(L"labelType", "category"));

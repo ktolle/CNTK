@@ -1332,14 +1332,14 @@ public:
             const char* p = strchr(line, '=');
             if (p == NULL)
                 RuntimeError("open: invalid TOC line (no = sign): %s", line);
-            const std::wstring key = msra::strfun::utf16(std::string(line, p - line));
+            const std::wstring key = Microsoft::MSR::CNTK::ToWString(std::string(line, p - line), false);
             p++;
             const char* q = strchr(p, '[');
             if (q == NULL)
                 RuntimeError("open: invalid TOC line (no [): %s", line);
             if (q != p)
             {
-                std::wstring archivepath = msra::strfun::utf16(std::string(p, q - p));
+                std::wstring archivepath = Microsoft::MSR::CNTK::ToWString(std::string(p, q - p), false);
                 if (!prefixPathInToc.empty())
                 {
                     archivepath = prefixPathInToc + L"/" + archivepath;

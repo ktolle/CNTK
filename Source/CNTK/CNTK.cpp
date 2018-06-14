@@ -419,7 +419,7 @@ int wmainWithBS(int argc, wchar_t* argv[]) // called from wmain which is a wrapp
 
     // startup message
     // In case of a redirect of stderr, this will be printed twice, once upfront, and once again after the redirect so that it goes into the log file
-    wstring startupMessage = msra::strfun::wstrprintf(L"running on %ls at %ls\n", msra::strfun::utf16(GetHostName()).c_str(), msra::strfun::utf16(TimeDateStamp()).c_str());
+    wstring startupMessage = msra::strfun::wstrprintf(L"running on %ls at %ls\n", Microsoft::MSR::CNTK::ToWString(GetHostName(), false).c_str(), Microsoft::MSR::CNTK::ToWString(TimeDateStamp(), false).c_str());
     startupMessage += msra::strfun::wstrprintf(L"command line: %ls", exePath.c_str());
     for (const auto& arg : args)
         startupMessage += L"  " + arg;
