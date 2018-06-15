@@ -1099,6 +1099,12 @@ std::vector<int64_t> CNTKToONNXHelper::ToINTS(const std::vector<Axis>& axes)
     return ToINTS(ToTypeProto(axes));
 }
 
+bool IsUnSupportedLayerNormalization(const FunctionPtr src)
+{
+    std::string cntkOpName = ToString(src->OpName());
+    return cntkOpName == "LayerNormalization" && src->Output().HasSequenceAxis();
+}
+
 bool OpNeedONNXTypeMap(const std::string &cntkType)
 {
     const vector<string> ops({"And", "Equal", "Greater", "Less", "Not", "Or", "Xor", "Gather", "ArgMax", "ArgMin"});
@@ -1439,8 +1445,10 @@ void CNTKToONNXHelper::PrepareRNNInput(const Variable &X, Graph *graph, std::vec
 {
     Variable input;
     wstring opName = X.Owner() ? X.Owner()->OpName() : L"";
-    if (X.BlockFunctionVariableMapping().IsInitialized() && !Operators::IsRNNOp(ToString(opName)))
+    
+    if (X.BlockFunctionVariableMapping().IsInitialized() && !Operators::IsRNNOp(ToString(opName)) && opName != L"Embedding")
     {
+        // Embedding block output name is the block name already so we shall not mape ro the root function argument.
         input = X.BlockFunctionVariableMapping();
     }
     else
@@ -1640,6 +1648,18 @@ void SanityCheckForConstantOrParameters(const std::vector<Variable> &variables)
     }
 }
 
+std::pair<string, string> MakeRNNAndPostReshapeOutputNames(const std::vector<FunctionPtr> &lstms,
+    const std::vector<Variable> &Yhs, const FunctionPtr &src)
+{
+    std::string nodeOutputName;
+    if (lstms.size() == 1)
+        nodeOutputName = ToString(Yhs[0].Uid());
+    else
+        nodeOutputName = ToString(src->Output().Uid());
+    std::string nodeOutputNameBeforeReshape = nodeOutputName + "_before_reshape";
+    return std::make_pair(nodeOutputName, nodeOutputNameBeforeReshape);
+}
+
 ONNXIR::Node* CNTKToONNXHelper::CreateLSTMNode(const FunctionPtr &src,
                                                ONNXIR::Graph* graph,
                                                std::unordered_map<FunctionPtr, ONNXIR::Node*>& functionNodes,
@@ -1817,14 +1837,11 @@ ONNXIR::Node* CNTKToONNXHelper::CreateLSTMNode(const FunctionPtr &src,
     }
 
     std::vector<ONNXIR::NodeArg *> nodeOutputs;
-    std::string nodeOutputName;
-    if (lstms.size() == 1)
-        nodeOutputName = ToString(Yhs[0].Uid());
-    else
-        nodeOutputName = ToString(src->Output().Uid());
+    std::string nodeOutputName, 
+        nodeOutputNameBeforeReshape;
+    std::tie<std::string, std::string>(nodeOutputName, nodeOutputNameBeforeReshape) = MakeRNNAndPostReshapeOutputNames(lstms, Yhs, src);
 
     {
-        std::string nodeOutputNameBeforeReshape = nodeOutputName + "_before_reshape";
 
         auto outputArgType = ToTypeProto(std::vector<int>({FreeSequenceLen, (int)Yhs.size(), FreeBatchSize, (int)Yhs[0].Shape()[0]}), false);
         UpdateONNXType(Yhs[0].GetDataType(), outputArgType);
@@ -2100,17 +2117,14 @@ ONNXIR::Node *CNTKToONNXHelper::CreateGRUNode(const FunctionPtr &src,
         }
     }
 
+    std::string nodeOutputName, nodeOutputNameBeforeReshape;
+    std::tie<std::string, std::string>(nodeOutputName, nodeOutputNameBeforeReshape) = MakeRNNAndPostReshapeOutputNames(grus, Yhs, src);
+
     std::vector<ONNXIR::NodeArg *> nodeOutputs;
     {
-        std::string nodeName;
-        if (grus.size() == 1)
-            nodeName = ToString(Yhs[0].Uid());
-        else
-            nodeName = ToString(src->Output().Uid());
-
         auto outputArgType = ToTypeProto(std::vector<int>({ FreeSequenceLen, (int)Yhs.size(), FreeBatchSize, (int)Yhs[0].Shape()[0] }), false);
         UpdateONNXType(Yhs[0].GetDataType(), outputArgType);
-        ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeName, &outputArgType);
+        ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeOutputNameBeforeReshape, &outputArgType);
         nodeOutputs.push_back(&outputArg);
 
         {
@@ -2147,7 +2161,7 @@ ONNXIR::Node *CNTKToONNXHelper::CreateGRUNode(const FunctionPtr &src,
     // TODO: uncomment this code once LotusRT output shape matches ONNX
     // squeeze direction axis out. This is safe because it is not bi-directional node.
     std::vector<int> shape({ FreeSequenceLen, 1, hidden_size });
-    ONNXIR::Node *squeezedLSTMNode = InsertReshapeNodeToCNTKFunction(src, gruNode, shape, graph, "nodeOutputName");
+    ONNXIR::Node *squeezedLSTMNode = InsertReshapeNodeToCNTKFunction(src, gruNode, shape, graph, nodeOutputName);
     functionNodes.emplace(src, squeezedLSTMNode);
     return squeezedLSTMNode;
 }
@@ -2303,17 +2317,14 @@ ONNXIR::Node *CNTKToONNXHelper::CreateRNNNode(const FunctionPtr &src,
         }
     }
 
+    std::string nodeOutputName, nodeOutputNameBeforeReshape;
+    std::tie<std::string, std::string>(nodeOutputName, nodeOutputNameBeforeReshape) = MakeRNNAndPostReshapeOutputNames(rnns, Yhs, src);
+
     std::vector<ONNXIR::NodeArg *> nodeOutputs;
     {
-        std::string nodeName;
-        if (rnns.size() == 1)
-            nodeName = ToString(Yhs[0].Uid());
-        else
-            nodeName = ToString(src->Output().Uid());
-
         auto outputArgType = ToTypeProto(std::vector<int>({ FreeSequenceLen, (int)Yhs.size(), FreeBatchSize, (int)Yhs[0].Shape()[0] }), false);
         UpdateONNXType(Yhs[0].GetDataType(), outputArgType);
-        ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeName, &outputArgType);
+        ONNXIR::NodeArg &outputArg = graph->CreateOwnedNodeArg(nodeOutputNameBeforeReshape, &outputArgType);
         nodeOutputs.push_back(&outputArg);
 
         //{
@@ -2347,7 +2358,7 @@ ONNXIR::Node *CNTKToONNXHelper::CreateRNNNode(const FunctionPtr &src,
     //// TODO: uncomment this code once LotusRT output shape matches ONNX
     //// squeeze direction axis out. This is safe because it is not bi-directional node.
     std::vector<int> shape({ FreeSequenceLen, 1, hidden_size });
-    ONNXIR::Node *squeezedRNNNode = InsertReshapeNodeToCNTKFunction(src, rnnNode, shape, graph, "nodeOutputName");
+    ONNXIR::Node *squeezedRNNNode = InsertReshapeNodeToCNTKFunction(src, rnnNode, shape, graph, nodeOutputName);
     functionNodes.emplace(src, squeezedRNNNode);
     return squeezedRNNNode;
 }
@@ -2520,6 +2531,14 @@ ONNXIR::Node* CNTKToONNXHelper::CreateNode(const FunctionPtr& src,
     if (src->IsBlock() &&
         (!Operators::IsSupportedCNTKOP(src->OpName()) || Operators::IsLayerCNTKOP(src->OpName())))
     {
+        functionNode = CreateNode(src->BlockRoot(), graph, functionNodes, variableNodes, compositeOutputsMap);
+    }
+    else if (IsUnSupportedLayerNormalization(src))
+    {
+        // LayerNormalization is build with a MeanVarianceNormalization op which requires
+        // input to be of shape NCHW. For other cases such as language models with
+        // features in 1-D, we have to fallback to unblocking the op into its subgraph. 
+        // TODO: make ONNX MeanVarianceNormalization and CNTK test work with sequential models.
         functionNode = CreateNode(src->BlockRoot(), graph, functionNodes, variableNodes, compositeOutputsMap);
     }
     //
@@ -2759,7 +2778,8 @@ void CNTKToONNXHelper::TraverseGraph(const FunctionPtr& src,
     }
 
     if (!Operators::IsRNNOp(opName) &&
-        src->IsBlock() && (!Operators::IsSupportedCNTKOP(src->OpName()) || Operators::IsLayerCNTKOP(src->OpName())))
+        src->IsBlock() && (!Operators::IsSupportedCNTKOP(src->OpName()) || Operators::IsLayerCNTKOP(src->OpName())) ||
+        IsUnSupportedLayerNormalization(src))
     {
         auto blockSrc = dynamic_cast<BlockFunction*>(src.get());
         for (auto map : blockSrc->CompositeOutputsMap())
@@ -3423,21 +3443,26 @@ ONNXIR::Node* CNTKToONNXHelper::AddNode(const FunctionPtr& src, ONNXIR::Graph* g
 
                 ONNXIR::NodeArg &inputOutput2Arg = graph->CreateOwnedNodeArg(orderedInputs[1]->Name() + string("_reshape2"), nullptr);
                 {
-                    auto reshapeNode2 = graph->AddNode(nodeName + string("_reshape2"), "Reshape", "", {orderedInputs[1]}, {&inputOutput2Arg});
                     // remove batch and sequence dimensions
                     shape2.erase(shape2.begin());
                     shape2.erase(shape2.begin());
-                    reshapeNode2->AddAttribute("shape", shape2);
+                    // auto reshapeNode2 = graph->AddNode(nodeName + string("_reshape2"), "Reshape", "", {orderedInputs[1]}, {&inputOutput2Arg});
+                    // reshapeNode2->AddAttribute("shape", shape2);
+                    auto reshapeNode2 = AddReshapeNodeAccordingToONNXVersion(graph, nodeName + string("_reshape2"),
+                        orderedInputs[1], &inputOutput2Arg, shape2);
+
                 }
 
                 ONNXIR::NodeArg& inputOutput1Arg = graph->CreateOwnedNodeArg(orderedInputs[0]->Name() + string("_reshape1"), nullptr);
                 {
-                    auto reshapeNode1 = graph->AddNode(nodeName + string("_reshape1"), "Reshape", "", {orderedInputs[0]}, {&inputOutput1Arg});
-                    // (const_cast<TensorShapeProto*>(input1Shape))->mutable_dim(0)->set_dim_value(SequenceLen);
                     (const_cast<TensorShapeProto*>(input1Shape))->mutable_dim(0)->set_dim_value(FreeSequenceLen);
-
                     onnx::TypeProto reshapeTypeProto1 = TensorShapeProtoToTypeProto(input1Shape);
-                    reshapeNode1->AddAttribute("shape", ToINTS(reshapeTypeProto1));
+                    // auto reshapeNode1 = graph->AddNode(nodeName + string("_reshape1"), "Reshape", "", {orderedInputs[0]}, {&inputOutput1Arg});
+                    //// (const_cast<TensorShapeProto*>(input1Shape))->mutable_dim(0)->set_dim_value(SequenceLen);
+                    // reshapeNode1->AddAttribute("shape", ToINTS(reshapeTypeProto1));
+
+                    auto reshapeNode1 = AddReshapeNodeAccordingToONNXVersion(graph, nodeName + string("_reshape1"),
+                        orderedInputs[0], &inputOutput1Arg, ToINTS(reshapeTypeProto1));
                 }
 
                 node = graph->AddNode(nodeName, ToOPName(src), "", {&inputOutput1Arg, &inputOutput2Arg}, outputs);

@@ -86,12 +86,12 @@ namespace ONNX
             { L"bidirectional", "bidirectional" },
             { L"recurrent_op", "recurrent_op" },
         } } },
-        //{ L"LayerNormalization",{ {
-        //    { L"LayerNormalization", "LayerNormalization" },
-        //    { L"initial_scale", "initial_scale" },
-        //    { L"initial_bias", "initial_bias" },
-        //    { L"epsilon", "epsilon" },
-        //} } },
+        { L"LayerNormalization",{ {
+            { L"LayerNormalization", "LayerNormalization" },
+            { L"initial_scale", "initial_scale" },
+            { L"initial_bias", "initial_bias" },
+            { L"epsilon", "epsilon" },
+        } } },
         { L"LocalResponseNormalization",{ {
             { L"LocalResponseNormalization", "LRN" },
             { L"size", "size" },
