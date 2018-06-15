@@ -10,7 +10,6 @@ FROM ubuntu:16.04
 RUN apt-get update && apt-get install -y --no-install-recommends \
         autotools-dev \
         build-essential \
-        cmake \
         git \
         g++-multilib \
         gcc-multilib \
@@ -47,6 +46,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         # Cleanup
         rm -rf /var/lib/apt/lists/*
 
+# Build and install cmake, as the available version (3.5.1) doesn't meet our requirements
+RUN CMAKE_VERSION=3.11.4 && \
+    CMAKE_VERSION_SHORT=3.11 && \
+    wget -q -O - https://cmake.org/files/v${CMAKE_VERSION_SHORT}/cmake-${CMAKE_VERSION}.tar.gz | tar -xzf - && \
+    cd cmake-${CMAKE_VERSION} && \
+    ./bootstrap && \
+    make -j $(nproc) && \
+    make install && \
+    cd .. && \
+    rm -rfd cmake-${CMAKE_VERSION}
+  
 RUN OPENMPI_VERSION=1.10.3 && \
     wget -q -O - https://www.open-mpi.org/software/ompi/v1.10/downloads/openmpi-${OPENMPI_VERSION}.tar.gz | tar -xzf - && \
     cd openmpi-${OPENMPI_VERSION} && \
